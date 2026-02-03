@@ -32,3 +32,22 @@ lerobot-record \
   --dataset.repo_id=humjie/bimanual-so101-fold-towel \
   --dataset.num_episodes=120 \
   --dataset.single_task="Fold towel"
+
+huggingface-cli upload humjie/bimanual-so101-fold-towel ~/.cache/huggingface/lerobot/humjie/bimanual-so101-fold-towel --repo-type dataset
+
+
+lerobot-replay \
+  --robot.type=bi_so100_follower \
+  --robot.left_arm_port=/dev/so101_follower_left \
+  --robot.right_arm_port=/dev/so101_follower_right \
+  --robot.id=bimanual_follower \
+  --dataset.repo_id=humjie/bimanual-so101-fold-towel \
+  --dataset.episode=0
+
+  lerobot-train \
+  --dataset.repo_id=humjie/bimanual-so101-fold-towel \
+  --policy.type=diffusion \
+  --output_dir=outputs/train/diffusion_bimanual-so101-fold-towel \
+  --job_name=diffusion_bimanual-so101-fold-towel \
+  --policy.device=cuda \
+  --policy.repo_id=humjie/bimanual-so101-fold-towel

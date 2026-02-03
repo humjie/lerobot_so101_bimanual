@@ -145,9 +145,15 @@ def init_keyboard_listener():
 
     # Only import pynput if not in a headless environment
     from pynput import keyboard
+    import threading
+    import sys
+    import select
+    import tty
+    import termios
 
     def on_press(key):
         try:
+            print(f"Key detected: {key}")
             if key == keyboard.Key.right:
                 print("Right arrow key pressed. Exiting loop...")
                 events["exit_early"] = True
@@ -159,11 +165,56 @@ def init_keyboard_listener():
                 print("Escape key pressed. Stopping data recording...")
                 events["stop_recording"] = True
                 events["exit_early"] = True
+        except AttributeError:
+            # Handle special keys that don't have char attribute
+            pass
         except Exception as e:
             print(f"Error handling key press: {e}")
 
-    listener = keyboard.Listener(on_press=on_press)
-    listener.start()
+    # Try pynput first
+    try:
+        listener = keyboard.Listener(on_press=on_press, suppress=False)
+        listener.start()
+        
+        # Test if pynput is working by checking if it can detect a key press
+        print("Keyboard listener started. Press RIGHT arrow to test...")
+        
+    except Exception as e:
+        print(f"Warning: pynput listener failed: {e}")
+        print("Falling back to terminal-based key detection...")
+        
+        # Fallback: Terminal-based key detection
+        def terminal_key_listener():
+            old_settings = termios.tcgetattr(sys.stdin)
+            try:
+                tty.cbreak(sys.stdin.fileno())
+                while True:
+                    if select.select([sys.stdin], [], [], 0.1)[0]:
+                        key = sys.stdin.read(1)
+                        if key == '\x1b':  # Escape sequence
+                            key += sys.stdin.read(2)
+                            if key == '\x1b[C':  # Right arrow
+                                print("Right arrow key pressed. Exiting loop...")
+                                events["exit_early"] = True
+                            elif key == '\x1b[D':  # Left arrow
+                                print("Left arrow key pressed. Exiting loop and rerecord the last episode...")
+                                events["rerecord_episode"] = True
+                                events["exit_early"] = True
+                        elif key == '\x1b':  # Pure escape
+                            print("Escape key pressed. Stopping data recording...")
+                            events["stop_recording"] = True
+                            events["exit_early"] = True
+                        elif key == '\x03':  # Ctrl+C
+                            break
+            except Exception as e:
+                print(f"Terminal key listener error: {e}")
+            finally:
+                termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+        
+        # Start terminal listener in a separate thread
+        listener_thread = threading.Thread(target=terminal_key_listener, daemon=True)
+        listener_thread.start()
+        listener = listener_thread
 
     return listener, events
 

@@ -540,7 +540,14 @@ def record(cfg: RecordConfig) -> LeRobotDataset:
             teleop.disconnect()
 
         if not is_headless() and listener:
-            listener.stop()
+            try:
+                if hasattr(listener, 'stop'):
+                    listener.stop()
+                elif hasattr(listener, 'join'):
+                    # It's a thread
+                    pass  # Daemon thread will be cleaned up automatically
+            except Exception as e:
+                logging.warning(f"Error stopping keyboard listener: {e}")
 
         if cfg.dataset.push_to_hub:
             dataset.push_to_hub(tags=cfg.dataset.tags, private=cfg.dataset.private)
