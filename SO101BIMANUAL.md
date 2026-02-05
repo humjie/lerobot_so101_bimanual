@@ -44,13 +44,30 @@ lerobot-replay \
   --dataset.repo_id=humjie/bimanual-so101-fold-towel \
   --dataset.episode=0
 
-  lerobot-train \
+lerobot-train \
   --dataset.repo_id=humjie/bimanual-so101-fold-towel \
   --policy.type=diffusion \
   --output_dir=outputs/train/diffusion_bimanual-so101-fold-towel \
   --job_name=diffusion_bimanual-so101-fold-towel \
   --policy.device=cuda \
-  --policy.repo_id=humjie/bimanual-so101-fold-towel
+  --policy.repo_id=humjie/diffusion_bimanual-so101-fold-towel
+
+lerobot-train \
+  --dataset.repo_id=humjie/bimanual-so101-fold-towel \
+  --policy.type=diffusion \
+  --output_dir=outputs/train/diffusion_bimanual-so101-fold-towel \
+  --job_name=diffusion_bimanual-so101-fold-towel \
+  --policy.device=cuda \
+  --policy.repo_id=humjie/diffusion_bimanual-so101-fold-towel \
+  --batch_size=8 \
+  --num_workers=2 \
+  --save_freq=1000
+
+lerobot-train \
+  --config_path=outputs/train/diffusion_bimanual-so101-fold-towel/checkpoints/last/pretrained_model/train_config.json \
+  --resume=true \
+  --save_freq=1000
+
 
 
 dpkg -i cuda-repo-ubuntu2204-X-Y-local_12.6.0*_amd64.deb
