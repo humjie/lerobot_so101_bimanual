@@ -358,6 +358,7 @@ def record_loop(
                 "This is likely to happen when resetting the environment without a teleop device."
                 "The robot won't be at its rest position at the start of the next episode."
             )
+            timestamp = time.perf_counter() - start_episode_t
             continue
 
         # Applies a pipeline to the action, default is IdentityProcessor
