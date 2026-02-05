@@ -51,3 +51,13 @@ lerobot-replay \
   --job_name=diffusion_bimanual-so101-fold-towel \
   --policy.device=cuda \
   --policy.repo_id=humjie/bimanual-so101-fold-towel
+
+
+dpkg -i cuda-repo-ubuntu2204-X-Y-local_12.6.0*_amd64.deb
+
+
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+dpkg -i cuda-keyring_1.1-1_all.deb
+
+mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
