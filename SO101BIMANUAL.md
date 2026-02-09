@@ -29,7 +29,7 @@ lerobot-record \
     right: {"type": "opencv", "index_or_path": "/dev/video4", "width": 640, "height": 480, "fps": 30},
     left: {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}
   }' \
-  --dataset.repo_id=humjie/bimanual-so101-fold-towel \
+  --dataset.repo_id=humjie/bimanual-so101-fold-towel-v2 \
   --dataset.num_episodes=120 \
   --dataset.single_task="Fold towel"
 
@@ -61,12 +61,12 @@ lerobot-train \
   --policy.repo_id=humjie/diffusion_bimanual-so101-fold-towel \
   --batch_size=8 \
   --num_workers=2 \
-  --save_freq=1000
+  --save_freq=5000 \
+  --eval_freq=5000
 
 lerobot-train \
   --config_path=outputs/train/diffusion_bimanual-so101-fold-towel/checkpoints/last/pretrained_model/train_config.json \
-  --resume=true \
-  --save_freq=1000
+  --resume=true
 
 
 
@@ -97,5 +97,17 @@ lerobot-record  \
   --teleop.id=bimanual_leader
 
 
-
-sudo apt install libnvidia-common-590 libnvidia-gl-590 nvidia-driver-590 -y
+lerobot-record  \
+  --robot.type=bi_so100_follower \
+  --robot.left_arm_port=/dev/so101_follower_left \
+  --robot.right_arm_port=/dev/so101_follower_right \
+  --robot.id=bimanual_follower \
+  --robot.cameras='{
+    top: {"type": "opencv", "index_or_path": "/dev/video6", "width": 640, "height": 480, "fps": 30},
+    right: {"type": "opencv", "index_or_path": "/dev/video4", "width": 640, "height": 480, "fps": 30},
+    left: {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}
+  }' \
+  --display_data=false \
+  --dataset.repo_id=humjie/eval_diffusion_bimanual-so101-fold-towel \
+  --dataset.single_task="Fold towel" \
+  --policy.path=outputs/train/diffusion_bimanual-so101-fold-towel/checkpoints/060000/pretrained_model
