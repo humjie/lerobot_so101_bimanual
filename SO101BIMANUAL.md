@@ -29,11 +29,11 @@ lerobot-record \
     right: {"type": "opencv", "index_or_path": "/dev/video4", "width": 640, "height": 480, "fps": 30},
     left: {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}
   }' \
-  --dataset.repo_id=humjie/bimanual-so101-fold-towel-v2 \
-  --dataset.num_episodes=120 \
+  --dataset.repo_id=humjie/bimanual-so101-fold-towel-v3 \
+  --dataset.num_episodes=60 \
   --dataset.single_task="Fold towel"
 
-huggingface-cli upload humjie/bimanual-so101-fold-towel ~/.cache/huggingface/lerobot/humjie/bimanual-so101-fold-towel --repo-type dataset
+huggingface-cli upload humjie/bimanual-so101-fold-towel-v3 ~/.cache/huggingface/lerobot/humjie/bimanual-so101-fold-towel-v3 --repo-type dataset
 
 
 lerobot-replay \
@@ -111,3 +111,20 @@ lerobot-record  \
   --dataset.repo_id=humjie/eval_diffusion_bimanual-so101-fold-towel \
   --dataset.single_task="Fold towel" \
   --policy.path=outputs/train/diffusion_bimanual-so101-fold-towel/checkpoints/060000/pretrained_model
+
+
+
+
+sudo nano /etc/udev/rules.d/99-lerobot.rules
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", ATTRS{serial}=="5B3E121998", SYMLINK+="so101_follower_right"
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", ATTRS{serial}=="5B3E122112", SYMLINK+="so101_follower_left"
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", ATTRS{serial}=="5B3E120945", SYMLINK+="so101_leader_left"
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d3", ATTRS{serial}=="5B3E121687", SYMLINK+="so101_leader_right"
+
+sudo udevadm control --reload-rules && sudo udevadm trigger
+
+
+sudo sh -c 'sync; echo 3 > /proc/sys/vm/drop_caches'
