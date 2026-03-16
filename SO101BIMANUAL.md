@@ -33,7 +33,7 @@ lerobot-record \
   --dataset.num_episodes=60 \
   --dataset.single_task="Fold towel"
 
-huggingface-cli upload humjie/bimanual-so101-fold-towel-v5 ~/.cache/huggingface/lerobot/humjie/bimanual-so101-fold-towel-v5 --repo-type dataset
+hf upload humjie/bimanual-so101-fold-towel-v5 ~/.cache/huggingface/lerobot/humjie/bimanual-so101-fold-towel-v5 --repo-type dataset
 
 
 lerobot-replay \
@@ -57,22 +57,52 @@ lerobot-train \
   --save_freq=10000 \
   --eval_freq=10000 \
   --steps=150000 \
-  --wandb.enable=true
+  --wandb.enable=true \
+  --resume=true
 
 lerobot-train \
-  --config_path=outputs/train/diffusion_bimanual-so101-fold-towel-v3-20/checkpoints/last/pretrained_model/train_config.json \
+  --config_path=outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/last/pretrained_model/train_config.json \
   --resume=true
 
 
+hf download humjie/bimanual-so101-fold-towel-v4 --local-dir ~/.cache/huggingface/lerobot/humjie/bimanual-so101-fold-towel-v4 --repo-type dataset
 
-huggingface-cli upload humjie/diffusion_bimanual-so101-fold-towel-v2 \
+lerobot-edit-dataset \
+    --repo_id lerobot/pusht \
+    --new_repo_id lerobot/pusht_after_deletion \
+    --operation.type delete_episodes \
+    --operation.episode_indices "[0, 2, 5]"
+
+    
+
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v2 \
   outputs/train/diffusion_bimanual-so101-fold-towel-v3-20-10000/checkpoints/last/pretrained_model
 
 CKPT=020000
-huggingface-cli upload humjie/diffusion_bimanual-so101-fold-towel-v3-20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3-20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
 
-
+CKPT=020000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
+CKPT=030000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
+CKPT=040000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
+CKPT=050000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
+CKPT=060000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
+CKPT=070000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
+CKPT=080000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
 
 lerobot-record  \
   --robot.type=bi_so100_follower \
