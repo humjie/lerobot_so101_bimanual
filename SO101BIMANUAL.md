@@ -74,9 +74,9 @@ lerobot-edit-dataset \
     --operation.splits '{"20": 0.3333333333, "40": 0.6666666666}'
 
 lerobot-edit-dataset \
-    --new_repo_id humjie/bimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
+    --new_repo_id humjie/bimanual-so101-fold-towel-v3_40-v4_40-v5_40 \
     --operation.type merge \
-    --operation.repo_ids "['humjie/bimanual-so101-fold-towel-v3_20', 'humjie/bimanual-so101-fold-towel-v4_20', 'humjie/bimanual-so101-fold-towel-v5_20']"
+    --operation.repo_ids "['humjie/bimanual-so101-fold-towel-v3_40', 'humjie/bimanual-so101-fold-towel-v4_40', 'humjie/bimanual-so101-fold-towel-v5_40']"
 
 
 hf upload humjie/diffusion_bimanual-so101-fold-towel-v2 \
@@ -127,13 +127,22 @@ hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
   outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
 
 
+CKPT=080000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_20-v5_20-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+CKPT=090000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_20-v5_20-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+CKPT=100000
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_20-v5_20-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
 lerobot-train \
-  --dataset.repo_id=humjie/bimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
+  --dataset.repo_id=humjie/bimanual-so101-fold-towel-v3_40-v4_40-v5_40 \
   --policy.type=diffusion \
-  --output_dir=outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
-  --job_name=diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
+  --output_dir=outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40 \
+  --job_name=diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40 \
   --policy.device=cuda \
-  --policy.repo_id=humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
+  --policy.repo_id=humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40 \
   --batch_size=8 \
   --num_workers=8 \
   --policy.use_amp=true \
@@ -142,38 +151,35 @@ lerobot-train \
   --steps=100000 \
   --wandb.enable=true
 CKPT=010000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 CKPT=020000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 CKPT=030000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 CKPT=040000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 CKPT=050000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 CKPT=060000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 CKPT=070000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 CKPT=080000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 CKPT=090000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 CKPT=100000
-hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
-  outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
-
-
-
+hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40-${CKPT} \
+  outputs/train/diffusion_bimanual-so101-fold-towel-v3_40-v4_40-v5_40/checkpoints/${CKPT}/pretrained_model
 
 
 
