@@ -125,10 +125,12 @@ hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
 CKPT=100000
 hf upload humjie/diffusion_bimanual-so101-fold-towel-v3-60-${CKPT} \
   outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/${CKPT}/pretrained_model
+
+
 lerobot-train \
   --dataset.repo_id=humjie/bimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
   --policy.type=diffusion \
-  --output_dir=outputs/train/diffusion_bbimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
+  --output_dir=outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
   --job_name=diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
   --policy.device=cuda \
   --policy.repo_id=humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20 \
