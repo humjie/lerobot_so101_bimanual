@@ -51,12 +51,12 @@ lerobot-train \
   --job_name=diffusion_bimanual-so101-fold-towel-v3-60 \
   --policy.device=cuda \
   --policy.repo_id=humjie/diffusion_bimanual-so101-fold-towel-v3-60 \
-  --batch_size=4 \
-  --num_workers=6 \
+  --batch_size=8 \
+  --num_workers=8 \
   --policy.use_amp=true \
   --save_freq=10000 \
   --eval_freq=10000 \
-  --steps=150000 \
+  --steps=100000 \
   --wandb.enable=true \
   --resume=true
 
@@ -137,9 +137,8 @@ lerobot-train \
   --policy.use_amp=true \
   --save_freq=10000 \
   --eval_freq=10000 \
-  --steps=150000 \
-  --wandb.enable=true \
-  --resume=true
+  --steps=100000 \
+  --wandb.enable=true
 CKPT=010000
 hf upload humjie/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20-${CKPT} \
   outputs/train/diffusion_bimanual-so101-fold-towel-v3_20-v4_20-v5_20/checkpoints/${CKPT}/pretrained_model
