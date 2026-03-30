@@ -50,23 +50,22 @@ lerobot-replay \
   --dataset.episode=0
 
 lerobot-train \
-  --dataset.repo_id=humjie/bimanual-so101-fold-towel-v3 \
+  --dataset.repo_id=humjie/bimanual-so101-fold-towel \
   --policy.type=diffusion \
-  --output_dir=outputs/train/diffusion_bimanual-so101-fold-towel-v3-60 \
-  --job_name=diffusion_bimanual-so101-fold-towel-v3-60 \
+  --output_dir=outputs/train/diffusion_bimanual-so101-fold-towel_120 \
+  --job_name=diffusion_bimanual-so101-fold-towel_120 \
   --policy.device=cuda \
-  --policy.repo_id=humjie/diffusion_bimanual-so101-fold-towel-v3-60 \
+  --policy.repo_id=humjie/diffusion_bimanual-so101-fold-towel_120 \
   --batch_size=8 \
   --num_workers=8 \
   --policy.use_amp=true \
   --save_freq=10000 \
   --eval_freq=10000 \
   --steps=100000 \
-  --wandb.enable=true \
-  --resume=true
+  --wandb.enable=true
 
 lerobot-train \
-  --config_path=outputs/train/diffusion_bimanual-so101-fold-towel-v3-60/checkpoints/last/pretrained_model/train_config.json \
+  --config_path=outputs/train/diffusion_bimanual-so101-fold-towel_40/checkpoints/last/pretrained_model/train_config.json \
   --resume=true
 
 
@@ -120,43 +119,14 @@ CKPT=100000
 hf upload humjie/${MODEL}-${CKPT} \
   outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model
 
-
-
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
-CKPT=010000
-hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
+MODEL=diffusion_bimanual-so101-fold-towel_120
 CKPT=020000
 hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
-CKPT=030000
-hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
-CKPT=040000
-hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
-CKPT=050000
-hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
+
+
+
+MODEL=diffusion_bimanual-so101-fold-towel_120
 CKPT=060000
-hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
-CKPT=070000
-hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
-CKPT=080000
-hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
-CKPT=090000
-hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-MODEL=diffusion_bimanual-so101-fold-towel-v3-60
-CKPT=100000
-hf download humjie/${MODEL}-${CKPT} --local-dir outputs/train/${MODEL}/checkpoints/${CKPT}/pretrained_model --repo-type model
-
-
-
-MODEL=diffusion_bimanual-so101-fold-towel-v3_60-v4_20-v5_20
-CKPT=090000
 lerobot-record  \
   --robot.type=bi_so100_follower \
   --robot.left_arm_port=/dev/so101_follower_left \
